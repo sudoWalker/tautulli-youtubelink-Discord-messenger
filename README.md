@@ -3,12 +3,11 @@ Simple Tautulli Script for sending a Youtube Link from last added Movie to Disco
 
 Requirements:
 
+1.
+Get your Youtube API: [https://developers.google.com/youtube/v3/getting-started?hl=de]
 
-    Get your Youtube API: [https://developers.google.com/youtube/v3/getting-started?hl=de]
-
-
-
-    Create A Discord Channel with a webhook access: [https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks]
+2.
+Create A Discord Channel with a webhook access: [https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks]
 
 
 
