@@ -20,7 +20,7 @@ Add A new Tautulli Script Notification Agent
 
 
 
-4. In the Arguments Tag add this to recently Addded: {title} {year}
+4. In the Arguments Tab add this to recently Addded: {title} {year}
 
 
 ![script_arguments](https://github.com/sudoWalker/tautulli-youtubelink-Discord-messenger/assets/5301174/c1892ed1-511d-4f2b-a6e6-d552e68ac054)
