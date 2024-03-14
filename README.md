@@ -10,6 +10,8 @@ Create A Discord Channel with a webhook access: [https://support.discord.com/hc/
 
 
 
+
+
 Add a folder in your Tautulli installation folder named "scripts" and place the file there.
 
 
