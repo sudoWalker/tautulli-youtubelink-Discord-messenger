@@ -38,7 +38,7 @@ def send_to_discord(webhook_url, content):
 film_title = os.getenv('title') if os.getenv('title') else sys.argv[1]  # The movie title is retrieved from the environment variables or from the command line arguments
 film_year = os.getenv('year') if os.getenv('year') else sys.argv[2] 
 api_key = 'Your_Youtube_API'  # Enter your YouTube API key here
-webhook_url = "https://discord.com/api/webhooks/YourWebhookURL"  # Setzen Sie hier Ihre Webhook-URL ein
-time.sleep(5)  # Warten Sie 5 Sekunden
+webhook_url = "https://discord.com/api/webhooks/YourWebhookURL"  # Insert your webhook URL here
+time.sleep(5)  # Wait 5 secondsn
 youtube_link = get_youtube_link(film_title, api_key)
 send_to_discord(webhook_url, youtube_link)
