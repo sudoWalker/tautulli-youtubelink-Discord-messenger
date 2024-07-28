@@ -1,28 +1,19 @@
 import os
 import sys
 import requests
-import json
 import time
+from pytube import Search
 
-def get_youtube_link(film_title, api_key):
-    query = film_title + " Trailer German" # change for different search results
-    url = f"https://www.googleapis.com/youtube/v3/search"
-    params = {
-        'part': 'snippet',
-        'maxResults': 1,
-        'q': query,
-        'key': api_key,
-        'type': 'video'
-    }
-    response = requests.get(url, params=params)
-    data = response.json()
-    video_id = data['items'][0]['id']['videoId']
-    return 'https://www.youtube.com/watch?v=' + video_id
+def get_youtube_link(film_title):
+    query = film_title + " Trailer German"
+    search = Search(query)
+    results = search.results
+    if results:
+        video_url = results[0].watch_url
+        return video_url
+    return None
 
 def send_to_discord(webhook_url, content):
-    if content is None:
-        print("No YouTube link found, not sending a message.")
-        return
     data = {
         "content": content
     }
@@ -33,12 +24,29 @@ def send_to_discord(webhook_url, content):
         print(f"HTTP error occurred: {err}")
         print(f"Response content: {result.content}")
     else:
-        print("Webhook delivered, returned {}.".format(result.status_code))
+        print(f"Webhook delivered, returned {result.status_code}.")
 
-film_title = os.getenv('title') if os.getenv('title') else sys.argv[1]  # The movie title is retrieved from the environment variables or from the command line arguments
-film_year = os.getenv('year') if os.getenv('year') else sys.argv[2] 
-api_key = 'Your_Youtube_API'  # Enter your YouTube API key here
-webhook_url = "https://discord.com/api/webhooks/YourWebhookURL"  # Insert your webhook URL here
-time.sleep(5)  # Wait 5 secondsn
-youtube_link = get_youtube_link(film_title, api_key)
-send_to_discord(webhook_url, youtube_link)
+# Abrufen des Filmtitels aus Umgebungsvariablen oder Kommandozeilenargumenten
+film_title = os.getenv('title') or (sys.argv[1] if len(sys.argv) > 1 else None)
+film_year = os.getenv('year') or (sys.argv[2] if len(sys.argv) > 2 else None)
+
+# Überprüfung, ob ein Titel vorhanden ist
+if not film_title:
+    film_title = "Unbekannter Titel"
+
+# Discord Webhook-URL
+webhook_url = "https://discord.com/api/webhooks/yourWebhookURL"
+
+time.sleep(5)  # Wartezeit
+
+# Abrufen des YouTube-Links
+youtube_link = get_youtube_link(film_title)
+
+# Nachricht erstellen
+if youtube_link:
+    message = f"Hier ist der YouTube-Link für '{film_title}': {youtube_link}"
+else:
+    message = f"Es wurde kein YouTube-Link für '{film_title}' gefunden."
+
+# Senden der Nachricht an den Discord-Webhook
+send_to_discord(webhook_url, message)
